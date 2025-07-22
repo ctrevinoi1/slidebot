@@ -12,6 +12,7 @@ const app = express();
 const port = process.env.PORT || 4000;
 
 app.use(cors());
+app.use(express.json()); // Add JSON body parser for auth endpoint
 
 // Configure multer for in-memory storage (we don't need to save files to disk)
 const upload = multer({
@@ -19,6 +20,27 @@ const upload = multer({
   limits: {
     fileSize: 50 * 1024 * 1024, // 50 MB
   },
+});
+
+// Authentication endpoint
+app.post("/auth/login", (req, res) => {
+  const { password } = req.body;
+  const appPassword = process.env.APP_PASSWORD;
+
+  if (!appPassword) {
+    console.error("APP_PASSWORD environment variable is not set");
+    return res.status(500).json({ error: "Server configuration error" });
+  }
+
+  if (!password) {
+    return res.status(400).json({ error: "Password is required" });
+  }
+
+  if (password === appPassword) {
+    res.json({ success: true });
+  } else {
+    res.status(401).json({ error: "Invalid password" });
+  }
 });
 
 app.post("/generate-quiz", upload.single("file"), async (req, res) => {

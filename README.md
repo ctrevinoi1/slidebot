@@ -4,6 +4,7 @@ SlideBot is a two-part web application that lets lecturers securely generate mul
 
 ## Features
 
+* Password-protected access – secure your quiz generator with a simple login.
 * Drag-and-drop a PDF or PPTX – nothing else to click.
 * Azure OpenAI (or GPT-4/EU variant) generates 5 MCQs based **solely** on the uploaded content.
 * Clean, ChatGPT-style UI built with React, Vite and Tailwind.
@@ -93,9 +94,11 @@ Both parts can be containerised and deployed to Azure App Service or Azure Conta
 
 ## 4. Security & data residency
 
+* Password protection prevents unauthorized access to the app.
 * The server sends your document text directly to Azure OpenAI – no third-party hops.
-* Data is **not** logged or used to retrain the model (per Microsoft’s enterprise policy).
+* Data is **not** logged or used to retrain the model (per Microsoft's enterprise policy).
 * Remove `console.log` statements if you process sensitive content.
+* **Important**: Choose a strong `APP_PASSWORD` and keep it secure. This is a simple shared password system.
 
 ---
 

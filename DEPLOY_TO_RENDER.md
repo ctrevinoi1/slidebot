@@ -27,10 +27,11 @@ Follow these simple steps to get your SlideBot app live on the web!
 2. Click "New +" → "Blueprint"
 3. Connect your GitHub repo (`ctrevinoi1/slidebot`)
 4. Render will detect `render.yaml` and create the backend service
-5. Add your Azure credentials when prompted:
+5. Add your environment variables when prompted:
    - `AZURE_OPENAI_ENDPOINT`: Your Azure endpoint
    - `AZURE_OPENAI_API_KEY`: Your API key
    - `AZURE_OPENAI_DEPLOYMENT`: Your deployment name
+   - `APP_PASSWORD`: Your chosen password for app access
 6. Click "Apply" and wait for deployment (~5 minutes)
 
 ## Step 3: Deploy Frontend to Render
@@ -61,6 +62,7 @@ Note: Free tier services sleep after 15 minutes of inactivity, so first load mig
 ## Troubleshooting
 
 - **"Failed to generate quiz"**: Check your Azure credentials in Render environment variables
+- **"Server configuration error" on login**: Make sure `APP_PASSWORD` is set in backend environment variables
 - **Frontend can't reach backend**: Ensure `VITE_API_URL` is set correctly
 - **Build failures**: Check the Render logs for specific errors
 - **"Not Found" on frontend**: Make sure Root Directory is set to `client` and Publish Directory is `dist`
