@@ -20,49 +20,37 @@ Follow these simple steps to get your SlideBot app live on the web!
    git push -u origin main
    ```
 
-## Step 2: Deploy to Render
+## Step 2: Deploy Backend to Render
 
-### Option A: One-Click Deploy (Easiest!)
-
-1. Edit the `render.yaml` file and replace `YOUR_USERNAME` with your GitHub username
-2. Go to [Render Dashboard](https://dashboard.render.com/)
-3. Click "New +" → "Blueprint"
-4. Connect your GitHub repo
-5. Render will automatically detect `render.yaml` and create both services!
-
-### Option B: Manual Deploy
-
-If you prefer to deploy manually:
-
-#### Deploy Backend:
+### Deploy Backend API:
 1. Go to [Render Dashboard](https://dashboard.render.com/)
-2. Click "New +" → "Web Service"
-3. Connect GitHub and select your repo
-4. Configure:
-   - **Name**: `slidebot-api`
-   - **Root Directory**: `server`
-   - **Build Command**: `npm install && npm run build`
-   - **Start Command**: `node dist/index.js`
-5. Add Environment Variables:
+2. Click "New +" → "Blueprint"
+3. Connect your GitHub repo (`ctrevinoi1/slidebot`)
+4. Render will detect `render.yaml` and create the backend service
+5. Add your Azure credentials when prompted:
    - `AZURE_OPENAI_ENDPOINT`: Your Azure endpoint
    - `AZURE_OPENAI_API_KEY`: Your API key
    - `AZURE_OPENAI_DEPLOYMENT`: Your deployment name
-6. Click "Create Web Service"
+6. Click "Apply" and wait for deployment (~5 minutes)
 
-#### Deploy Frontend:
+## Step 3: Deploy Frontend to Render
+
+### Deploy Frontend as Static Site:
 1. After backend is deployed, copy its URL (e.g., `https://slidebot-api.onrender.com`)
-2. Click "New +" → "Static Site"
-3. Connect to same repo
+2. In Render Dashboard, click "New +" → "Static Site"
+3. Connect to the same GitHub repo
 4. Configure:
    - **Name**: `slidebot-frontend`
+   - **Branch**: `main`
    - **Root Directory**: `client`
    - **Build Command**: `npm install && npm run build`
    - **Publish Directory**: `dist`
 5. Add Environment Variable:
-   - `VITE_API_URL`: Your backend URL from step 1
+   - Click "Advanced" to show environment variables
+   - Add `VITE_API_URL` = `https://slidebot-api.onrender.com` (your backend URL)
 6. Click "Create Static Site"
 
-## Step 3: You're Live! 🎉
+## Step 4: You're Live! 🎉
 
 Your app will be available at:
 - Frontend: `https://slidebot-frontend.onrender.com`
@@ -75,5 +63,6 @@ Note: Free tier services sleep after 15 minutes of inactivity, so first load mig
 - **"Failed to generate quiz"**: Check your Azure credentials in Render environment variables
 - **Frontend can't reach backend**: Ensure `VITE_API_URL` is set correctly
 - **Build failures**: Check the Render logs for specific errors
+- **"Not Found" on frontend**: Make sure Root Directory is set to `client` and Publish Directory is `dist`
 
 That's it! Your SlideBot is now live and accessible from anywhere! 🚀 
