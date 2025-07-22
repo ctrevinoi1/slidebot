@@ -17,12 +17,11 @@ services:
         sync: false
 
   # Frontend static site
-  - type: web
+  - type: static
     name: slidebot-frontend
-    runtime: static
     repo: https://github.com/ctrevinoi1/slidebot
     buildCommand: cd client && npm install && npm run build
-    staticPublishPath: client/dist
+    staticPublishPath: ./client/dist
     envVars:
       - key: VITE_API_URL
         value: https://slidebot-api.onrender.com 
