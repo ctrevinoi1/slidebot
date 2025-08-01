@@ -1,0 +1,17 @@
+services:
+  # Backend API service
+  - type: web
+    name: slidebot-api
+    runtime: node
+    repo: https://github.com/ctrevinoi1/slidebot
+    buildCommand: cd server && npm install && npm run build
+    startCommand: cd server && node dist/index.js
+    envVars:
+      - key: PORT
+        value: 4000
+      - key: AZURE_OPENAI_ENDPOINT
+        sync: false
+      - key: AZURE_OPENAI_API_KEY
+        sync: false
+      - key: AZURE_OPENAI_DEPLOYMENT
+        sync: false 
